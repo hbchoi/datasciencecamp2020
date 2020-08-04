@@ -1,10 +1,13 @@
 library(stringr)
 library(dplyr)
+# install.packages("data.table")
 library(data.table)
 
-src_dir <- c('/Users/osangjin/Desktop/past2/past/Recommendation-system/data') 
+# 경로 설정
+src_dir <- c('../data')
 src_file <- list.files(src_dir)
 
+# 파일 1개로 테스트
 file_name <- paste0(src_dir, '/', src_file[1])
 user_id <- as.numeric(str_extract(src_file[1], '\\d+'))
 df <- fread(file_name, sep=',', encoding="UTF-8")

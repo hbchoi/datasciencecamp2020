@@ -1,4 +1,3 @@
-
 # install.packages(c("recommenderlab", "tibble"))
 library(recommenderlab)
 library(dplyr) 
@@ -65,27 +64,20 @@ recom3
 as(recom3, "list")
 
 ### 직접!
-df <- read.csv("hungry_eun_tae.csv")
-View(df)
-
+df <- fread("hungry_eun_tae.csv", sep=',', encoding='UTF-8')
 df_t <- t(df)
-View(df_t)
-
 df_t <- df_t[-1,]
 colnames(df_t) <- paste("i", 1:ncol(df_t), sep='')
+rownames(df_t) <- paste("u", 1:nrow(df_t), sep='')
 
 df_t <- as.data.frame(df_t)
-str(df_t)
-
 df_t[,c(1:ncol(df_t))] <- as.double(unlist(df_t[,c(1:ncol(df_t))]))
-df_t[which(df_t == 0, arr.ind = TRUE)] <- NA
-str(df_t)
 
+df_t[which(df_t == 0, arr.ind = TRUE)] <- NA
 
 user_item_ratings <- as.matrix(df_t)
 rating <- as(user_item_ratings, "realRatingMatrix")
 
-# recommenderRegistry$get_entries(dataType = "realRatingMatrix")
 nrow(rating)
 class(rating)
 
